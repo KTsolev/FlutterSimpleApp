@@ -2,20 +2,14 @@ import 'package:flutter/material.dart';
 import 'User.dart';
 import 'UserTile.dart';
 import 'apiCall.dart';
+import 'main.dart';
 
 class UserList extends StatefulWidget {
-  UserList({Key key, this.title}) : super(key: key);
-  
-  final String title;
-
   @override
-  _UsersScreen createState() => _UsersScreen(title: this.title);
+  _UsersScreen createState() => _UsersScreen();
 }
 
 class _UsersScreen extends State<UserList> {
-  _UsersScreen({this.title});
-  
-  final String title;
 
   List<User> _users = <User>[];
   
@@ -28,10 +22,12 @@ class _UsersScreen extends State<UserList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
+    
+    return Scaffold (
+      appBar: AppBar (
         centerTitle: true,
-        title: Text(this.title),
+        title: Text(args.title),
       ),
        body: ListView.builder(
                 itemCount: _users.length,

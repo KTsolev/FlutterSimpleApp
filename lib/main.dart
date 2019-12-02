@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 import 'ListView.dart';
+import 'UserProfile.dart';
 
 void main() => runApp(MyApp());
+
+class ScreenArguments {
+  final String title;
+  final int id;
+  
+  ScreenArguments(this.title, this.id);
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -17,7 +25,8 @@ class MyApp extends StatelessWidget {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => MyHomePage(title: 'Flutter Home Page'),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => UserList(title: 'User List'),
+        '/listView': (context) => UserList(),
+        '/listView/profile:id': (context) => UserProfile(),
       },
     );
   }
@@ -147,7 +156,18 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Open route'),
               onPressed: () {
                 // Navigate to second route when tapped.
-                Navigator.pushNamed(context, '/second');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserList(),
+                       settings: RouteSettings(
+                       arguments: ScreenArguments(
+                          'User List View',
+                          -20
+                       ),
+                     ),
+                  )
+                );
               },
             ),
           ),
